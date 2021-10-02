@@ -1,0 +1,145 @@
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(solutions(1, 0, 1));
+        System.out.println(findZip("ddzipsd azip"));
+        System.out.println(cheakPerfect(28));
+        System.out.println(flipEndChars("c"));
+        System.out.println(isValidHexCode("#CD5C5C"));
+        System.out.println(same(new int[]{1, 3, 4, 4, 4},new int[]{2, 5, 7}));
+        System.out.println(isKaprekar(297));
+        System.out.println(longestZero("1110000110001100000"));
+        System.out.println(nextPrime(11));
+        System.out.println(righTriangle(6,8,10));
+    }
+
+    public static int solutions(double a, double b, double c) {
+        double D = Math.pow(b, 2) - 4 * a * c;
+        if (D > 0) return 2;
+        else if (D == 0) return 1;
+        else return 0;
+    }
+
+    public static int findZip(String line) {
+        String Zip = "zip";
+        int first = line.indexOf("zip");// первое вхождение "zip"
+        int second = line.indexOf("zip", first + 1);// второе вхождение "zip"
+        return (second);
+    }
+    public static boolean cheakPerfect(int number){
+        int summ=0;
+        for(int i=1;i<number;i++){
+            if(number%i==0)summ=summ+i;
+        }
+        return (summ==number);
+    }
+    public static String flipEndChars(String line){
+        char [] str = line.toCharArray();
+        if (str.length<2) return "Incompatible";
+        else if(str[0]==str[str.length-1]){
+            return"Two's a pair";
+        }
+        else {
+            char first=str[0];
+            char end=str[str.length-1];
+            str[0]=end;
+            str[str.length-1]=first;
+            String fin = String.valueOf(str);
+            return fin;
+        }
+    }
+    public static boolean isValidHexCode(String line){
+        char [] str=line.toCharArray();
+        int summ=0;
+        if(str[0]=='#'&&str.length==7){
+            for(int i=1;i<str.length;i++){
+                if((str[i]>='a'&&str[i]<='f')||(str[i]>='A'&&str[i]<='F')||(str[i]>='0'&&str[i]<='9')){
+                    summ++;
+                }
+            }
+        }
+        return summ==str.length-1;
+    }
+    public static boolean same(int[] first, int[] second){
+        int a = 1;//кол-во уникальных элементов в первом массиве
+        int b=1;//кол-во уникальных элементов во втором массиве
+
+        for(int i=1;i<first.length;i++){
+            boolean test=false;
+            for (int j=0;j<i;j++){
+                if (first[j]==first[i]) {
+                    test=true;
+                    break;
+                }
+            }
+            if (!test)a++;
+        }
+        for(int i=1;i<second.length;i++){
+            boolean test=false;
+            for (int j=0;j<i;j++){
+                if (second[j]==second[i]) {
+                    test=true;
+                    break;
+                }
+            }
+            if (!test)b++;
+        }
+        return a==b;
+    }
+    public static boolean isKaprekar(int a){
+        int pow=a*a;
+        String sq1=Integer.toString(pow);
+        int mid=(Integer.toString(pow).length())/2;
+        int mod=pow%((int)Math.pow(10,sq1.length()-mid));
+        int div=pow/((int)Math.pow(10,sq1.length()-mid));
+        int sum=mod+div;
+        return sum==a;
+    }
+    public static String longestZero(String line){
+        char [] str =line.toCharArray();
+        String fin="";
+        int a = 0;
+        int b = 0;
+        for (int i=0;i<str.length;i++){
+            if(str[i]=='0'){
+                b++;
+                if(a<b)a=b;
+            }
+            else b=0;
+        }
+        for (int i=0;i<a;i++) fin=fin+"0";
+        return fin;
+    }
+    public static int nextPrime(int number){
+        boolean isPrime = false;
+        boolean f = false;
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                f = true;
+                break;
+            }
+        }
+        if (f==false)return number;
+        else {
+            while (!isPrime) {
+                number += 1;
+                int m = (int) Math.ceil(Math.sqrt(number));
+                isPrime = true;
+                for (int i = 2; i <= m; i++) {
+                    if (number % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return number;
+    }
+    public static boolean righTriangle(int a,int b, int c){
+        return (a*a+b*b==c*c||a*a+c*c==b*b||b*b+c*c==a*a);
+    }
+}
+
+
+
+
+
